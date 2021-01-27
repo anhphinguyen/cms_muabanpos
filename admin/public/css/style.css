@@ -14,6 +14,9 @@
 .cursor-pointer{
     cursor: pointer;
 }
+.border-none{
+    border: none!important;
+}
 h1,h2,h3,h4,h5,h6 {
     font-weight:100
 }
@@ -3381,6 +3384,9 @@ table.table-mail tr td {
 }
 .text-danger {
     color:#ed5565
+}
+.text-light {
+    color:#ffffff!important
 }
 .text-muted {
     color:#888

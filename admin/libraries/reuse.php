@@ -160,6 +160,59 @@ function getRolePermission($idUser = '')
 // -----------------------------------------------------------------------------
 // Kiểm tra email có tồn tại trên hệ thống hay không 
 // ------------------------------------ ----------------------------------------
+function handing_file_img($myfile, $dir_save)
+{    // myfile = file nhập vào, $max_size = kích thước lớn nhất của file, 
+    // $allow_file_type = các đuôi file cho phép, $dir_save = thư mục lưu trữ
+    if ($_FILES[$myfile]['error'] == 0) {
+        $target_dir = $dir_save;
+        $target_dir_4_upload = '../' . $dir_save;
+        $target_file = $target_dir . basename($_FILES[$myfile]['name']);
+        $target_save_file = $target_dir_4_upload . basename($_FILES[$myfile]['name']);
+
+
+        $allow_file_type = array('jpg', 'jpeg', 'png');
+        $max_file_size = 5242880;
+        $img_file_type = pathinfo($target_file, PATHINFO_EXTENSION);
+
+        // kiem tra co phai file anh
+        $check = getimagesize($_FILES[$myfile]['tmp_name']);
+        if ($check !== false) {
+            $img_info = pathinfo($_FILES[$myfile]['name']);
+            if (file_exists($target_save_file)) {
+                $k = 0;
+                $name_copy = $img_info['filename'] . "_Copy_" . $k;
+                $target_file = $target_dir . $name_copy . "." . $img_info['extension'];
+                $target_save_file = $target_dir_4_upload . $name_copy . "." . $img_info['extension'];
+                while (file_exists($target_save_file)) {
+                    $k++;
+                    $name_copy = $img_info['filename'] . "_Copy_" . $k;
+                    $target_file = $target_dir . $name_copy . "." . $img_info['extension'];
+                    $target_save_file = $target_dir_4_upload . $name_copy . "." . $img_info['extension'];
+                }
+            }
+
+            if ($_FILES[$myfile]['size'] > $max_file_size) {
+                return "file size is greater than {$max_file_size}";
+            }
+
+            if (!in_array(strtolower($img_file_type), $allow_file_type)) {
+                return "file type is not allow, {$allow_file_type}";
+            }
+
+            move_uploaded_file($_FILES[$myfile]['tmp_name'], $target_save_file);
+            // return_success($target_file);
+            return $target_file;
+        } else {
+            return "Không phải ảnh";
+        }
+    } else {
+        return "Lỗi dữ liệu";
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Kiểm tra email có tồn tại trên hệ thống hay không 
+// ------------------------------------ ----------------------------------------
 function check_email($email)
 {
     $check = db_num_rows("SELECT * FROM `tbl_account_account` WHERE `email` = '{$email}'");

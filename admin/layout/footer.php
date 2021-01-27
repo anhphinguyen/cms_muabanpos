@@ -34,7 +34,8 @@
             <script src="public/js/demo/sparkline-demo.js"></script>
             <script src="public/js/plugins/chartJs/Chart.min.js"></script>
             <script src="public/js/images.js"></script>
-            <script>
+            <script src="public/js/call_api.js"></script>
+            <!-- <script>
                 $(document).ready(function () {
                     "use strict";
                     Morris.Bar({
@@ -87,6 +88,6 @@
                         }
                     });
                 });
-            </script>
+            </script> -->
     </body>
 </html>

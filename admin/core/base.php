@@ -125,6 +125,25 @@ function get_head($name = '') {
         echo "Không tìm thấy {$path}";
     }
 }
+function get_modal($name = '') {
+    global $data;
+    if (empty($name)) {
+        $name = 'modal';
+    } else {
+        $name = "modal.{$name}";
+    }
+    $path = LAYOUTPATH . DIRECTORY_SEPARATOR . $name . '.php';
+    if (file_exists($path)) {
+        if (is_array($data)) {
+            foreach ($data as $key => $a) {
+                $$key = $a;
+            }
+        }
+        require $path;
+    } else {
+        echo "Không tìm thấy {$path}";
+    }
+}
 function get_header($name = '') {
     global $data;
     if (empty($name)) {

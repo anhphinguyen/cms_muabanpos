@@ -8,6 +8,12 @@ function is_username($username)
     if (preg_match($parttern, $username))
         return true;
 }
+function is_name($username)
+{
+    $parttern = "/^[A-Za-z0-9_\.]+$/";
+    if (preg_match($parttern, $username))
+        return true;
+}
 
 //@Hàm : is_password
 //@Tham số: chuỗi password cần kiểm tra
